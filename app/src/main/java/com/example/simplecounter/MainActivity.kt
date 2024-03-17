@@ -60,7 +60,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun TextResult( text : String){
-    Text(text = text,
+    Text(text = convertToPersianNumbers(text),
         fontSize = 30.sp,
         fontWeight = FontWeight.Bold
         )
@@ -71,6 +71,19 @@ fun MyButton(text: String, onButtonClicked:()->Unit){
     Button(onClick = onButtonClicked) {
         Text(text = text)
     }
+}
+
+fun convertToPersianNumbers(input: String): String {
+    val persianNumbers = charArrayOf('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹')
+    val englishNumbers = charArrayOf('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
+
+    var result = ""
+    for (char in input) {
+        val index = englishNumbers.indexOf(char)
+        result += if (index != -1) persianNumbers[index] else char
+    }
+
+    return result
 }
 
 @Preview(showBackground = true)
